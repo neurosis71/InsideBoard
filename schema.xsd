@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--
+    Revision
+        */ 2015-06-26: Christophe Martel <christophe@m-inside.com>
+            Initial version
+        */ 2017-05-31: Translation
+    -->
+    <!-- restriction -->
+    
+    <xs:simpleType name="civilityType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="mrs"/>
+            <xs:enumeration value="ms"/>
+            <xs:enumeration value="m"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="imageContentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="image/jpg"/>
+            <xs:enumeration value="image/gif"/>
+            <xs:enumeration value="image/png"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- main declarations -->
+    <xs:element name="directory">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="organizational-units" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element ref="members" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element ref="referential" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- ou -->
+    <xs:element name="organizational-units">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="organizational-unit" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="organizational-unit">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="code" type="xs:string" use="required" />
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                    <xs:attribute name="type" type="xs:string" use="required" />
+                    <xs:attribute name="parent" type="xs:string" />
+                    <xs:attribute name="head"   type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- members -->
+    <xs:element name="members">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="member" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueEntityIdentityStaffNumber">
+            <xs:selector xpath="entity/identity"/>
+            <xs:field xpath="@staffNumber"/>
+        </xs:unique>
+        <xs:unique name="uniqueEntityIdentityAccount">
+            <xs:selector xpath="entity/identity"/>
+            <xs:field xpath="@account"/>
+        </xs:unique>
+    </xs:element>
+    
+    <xs:element name="member">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="identity"/>
+                <xs:element ref="name"/>
+                <xs:element ref="employee"/>
+                <xs:element ref="picture" minOccurs="0" maxOccurs="1" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required" />
+        </xs:complexType>
+        
+    </xs:element>
+
+    <xs:element name="identity">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="staffNumber" type="xs:string" use="required" />
+                    <xs:attribute name="account" type="xs:string" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="name">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="first" type="xs:string"/>
+                <xs:element name="last" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="civility" type="civilityType" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="employee">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">&
+                    <xs:attribute name="email"  type="xs:string" use="required" />
+                    <xs:attribute name="grade"  type="xs:string" use="required" />
+                    <xs:attribute name="uo"     type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="picture">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="data" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="type" type="imageContentType" use="required" />
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- referential -->
+    <xs:element name="referential">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="uo-types" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="grades-categories" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="grades" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="uo-types">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="uo-type" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="uo-type">
+        <xs:complexType>
+            <xs:attribute name="code" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+    
+    
+    <xs:element name="grades-categories">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="grade-categorie" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="grade-categorie">
+        <xs:complexType>
+            <xs:attribute name="code" type="xs:string" use="required" />
+            <xs:attribute name="label" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+    
+    
+    <xs:element name="grades">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="grade" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="grade">
+        <xs:complexType>
+            <xs:attribute name="code" type="xs:string" use="required" />
+            <xs:attribute name="label" type="xs:string" use="required" />
+            <xs:attribute name="parent" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+    
+    
+    
+    
+    
+</xs:schema> 
