@@ -30,10 +30,10 @@ class Grade
      */
     private $label;
     
-    /** 
-     * @MongoDB\EmbedOne(targetDocument="GradeCategory") 
+    /**
+     * @MongoDB\Field(type="string")
      */
-    private $gradeCategory;
+    private $gradeCategoryId;
     
 
     /**
@@ -90,25 +90,27 @@ class Grade
         return $this->label;
     }
 
+    
+
     /**
-     * Set gradeCategory
+     * Set gradeCategoryId
      *
-     * @param Insideboard\DbBundle\Document\GradeCategory $gradeCategory
+     * @param string $gradeCategoryId
      * @return $this
      */
-    public function setGradeCategory(\Insideboard\DbBundle\Document\GradeCategory $gradeCategory)
+    public function setGradeCategoryId($gradeCategoryId)
     {
-        $this->gradeCategory = $gradeCategory;
+        $this->gradeCategoryId = $gradeCategoryId;
         return $this;
     }
 
     /**
-     * Get gradeCategory
+     * Get gradeCategoryId
      *
-     * @return Insideboard\DbBundle\Document\GradeCategory $gradeCategory
+     * @return string $gradeCategoryId
      */
-    public function getGradeCategory()
+    public function getGradeCategoryId()
     {
-        return $this->gradeCategory;
+        return $this->gradeCategoryId;
     }
 }

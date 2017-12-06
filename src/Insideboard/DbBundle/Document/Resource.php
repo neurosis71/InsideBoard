@@ -23,7 +23,12 @@ class Resource
     /**
      * @MongoDB\Field(type="string")
      */
-    private $serial;
+    private $remoteId;
+    
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $staffNumber;
     
     /**
      * @MongoDB\Field(type="string")
@@ -50,15 +55,25 @@ class Resource
      */
     private $email;
     
-    /** 
-     * @MongoDB\EmbedOne(targetDocument="Grade") 
+    /**
+     * @MongoDB\Field(type="string")
      */
-    private $grade;
+    private $gradeId;
+    
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $ouId;
     
     /**
      * @MongoDB\Field(type="string")
      */
     private $picture;
+    
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $pictureType;
 
     /**
      * Get id
@@ -70,27 +85,7 @@ class Resource
         return $this->id;
     }
 
-    /**
-     * Set serial
-     *
-     * @param string $serial
-     * @return $this
-     */
-    public function setSerial($serial)
-    {
-        $this->serial = $serial;
-        return $this;
-    }
-
-    /**
-     * Get serial
-     *
-     * @return string $serial
-     */
-    public function getSerial()
-    {
-        return $this->serial;
-    }
+   
 
     /**
      * Set login
@@ -224,25 +219,115 @@ class Resource
         return $this->picture;
     }
 
+    
+
     /**
-     * Set grade
+     * Set gradeId
      *
-     * @param Insideboard\DbBundle\Document\Grade $grade
+     * @param string $gradeId
      * @return $this
      */
-    public function setGrade(\Insideboard\DbBundle\Document\Grade $grade)
+    public function setGradeId($gradeId)
     {
-        $this->grade = $grade;
+        $this->gradeId = $gradeId;
         return $this;
     }
 
     /**
-     * Get grade
+     * Get gradeId
      *
-     * @return Insideboard\DbBundle\Document\Grade $grade
+     * @return string $gradeId
      */
-    public function getGrade()
+    public function getGradeId()
     {
-        return $this->grade;
+        return $this->gradeId;
+    }
+
+    /**
+     * Set ouId
+     *
+     * @param string $ouId
+     * @return $this
+     */
+    public function setOuId($ouId)
+    {
+        $this->ouId = $ouId;
+        return $this;
+    }
+
+    /**
+     * Get ouId
+     *
+     * @return string $ouId
+     */
+    public function getOuId()
+    {
+        return $this->ouId;
+    }
+
+    /**
+     * Set remoteId
+     *
+     * @param string $remoteId
+     * @return $this
+     */
+    public function setRemoteId($remoteId)
+    {
+        $this->remoteId = $remoteId;
+        return $this;
+    }
+
+    /**
+     * Get remoteId
+     *
+     * @return string $remoteId
+     */
+    public function getRemoteId()
+    {
+        return $this->remoteId;
+    }
+
+    /**
+     * Set staffNumber
+     *
+     * @param string $staffNumber
+     * @return $this
+     */
+    public function setStaffNumber($staffNumber)
+    {
+        $this->staffNumber = $staffNumber;
+        return $this;
+    }
+
+    /**
+     * Get staffNumber
+     *
+     * @return string $staffNumber
+     */
+    public function getStaffNumber()
+    {
+        return $this->staffNumber;
+    }
+
+    /**
+     * Set pictureType
+     *
+     * @param string $pictureType
+     * @return $this
+     */
+    public function setPictureType($pictureType)
+    {
+        $this->pictureType = $pictureType;
+        return $this;
+    }
+
+    /**
+     * Get pictureType
+     *
+     * @return string $pictureType
+     */
+    public function getPictureType()
+    {
+        return $this->pictureType;
     }
 }

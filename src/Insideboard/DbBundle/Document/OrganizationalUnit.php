@@ -36,10 +36,10 @@ class OrganizationalUnit
      */
     protected $type;
     
-    /** 
-     * @MongoDB\EmbedOne(targetDocument="OrganizationalUnit") 
+    /**
+     * @MongoDB\Field(type="string")
      */
-    protected $parent;
+    protected $parentId;
 
     
 
@@ -119,25 +119,29 @@ class OrganizationalUnit
         return $this->type;
     }
 
+
+
+    
+
     /**
-     * Set parent
+     * Set parentId
      *
-     * @param Insideboard\DbBundle\Document\OrganizationalUnit $parent
+     * @param string $parentId
      * @return $this
      */
-    public function setParent(\Insideboard\DbBundle\Document\OrganizationalUnit $parent)
+    public function setParentId($parentId)
     {
-        $this->parent = $parent;
+        $this->parentId = $parentId;
         return $this;
     }
 
     /**
-     * Get parent
+     * Get parentId
      *
-     * @return Insideboard\DbBundle\Document\OrganizationalUnit $parent
+     * @return string $parentId
      */
-    public function getParent()
+    public function getParentId()
     {
-        return $this->parent;
+        return $this->parentId;
     }
 }
